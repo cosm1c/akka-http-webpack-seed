@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Unit Tests') {
             steps {
-                sh 'echo Running ${BUILD_ID} ${GIT_COMMIT} on ${JENKINS_URL} at ${WORKSPACE}'
+                sh 'echo BUILD_ID=${BUILD_ID} GIT_COMMIT=${GIT_COMMIT} JENKINS_URL=${JENKINS_URL} WORKSPACE=${WORKSPACE}'
+                sh 'npm run ci-test'
+                junit 'target/ui/test-reports/*.xml'
             }
         }
         stage('Build') {

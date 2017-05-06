@@ -18,6 +18,7 @@
     "jasmine-core": "*",
     "karma": "*",
     "karma-jasmine": "*",
+    "karma-junit-reporter": "*",
     "karma-phantomjs-launcher": "*",
     "karma-phantomjs-shim": "*",
     "karma-sourcemap-loader": "*",
@@ -25,8 +26,8 @@
     "less": "*",
     "less-loader": "*",
     "less-plugin-clean-css": "*",
-    "phantomjs-prebuilt": "*",
     "null-loader": "*",
+    "phantomjs-prebuilt": "*",
     "raw-loader": "*",
     "rimraf": "*",
     "script-loader": "*",
@@ -42,6 +43,7 @@
   },
   "scripts": {
     "webpack-dev-server": "gulp --gulpfile ui/gulpfile.js webpack-dev-server",
+    "ci-test": "gulp --gulpfile ui/gulpfile.js ci-test",
     "package": "gulp --gulpfile ui/gulpfile.js package"
   },
   "author": "Cory Prowse <cory@prowse.com>",
