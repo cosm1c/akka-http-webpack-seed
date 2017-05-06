@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'hseeberger/scala-sbt'
-      args '--volume=$HOME/.ivy2:/root/.ivy2'
+      args '--volume=/Users/cosmic/.ivy2:/root/.ivy2'
     }
     
   }
