@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
-        sh 'echo Running ${BUILD_ID} on ${JENKINS_URL} at ${WORKSPACE}'
+        sh 'echo Running ${BUILD_ID} ${GIT_COMMIT} on ${JENKINS_URL} at ${WORKSPACE}'
       }
     }
     stage('Build') {
