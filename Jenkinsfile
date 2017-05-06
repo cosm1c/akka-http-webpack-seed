@@ -8,12 +8,12 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'sbt assembly'
+        sh 'sbt clean test assembly'
+        junit 'target/test-reports/**/*.xml'
       }
     }
     stage('Report') {
       steps {
-        junit 'target/test-reports/**/*.xml'
         archiveArtifacts 'target/scala-2.12/*.jar'
       }
     }
