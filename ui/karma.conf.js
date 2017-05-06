@@ -35,7 +35,7 @@ module.exports = function (config) {
      * http://karma-runner.github.io/0.13/config/files.html
      */
     files: [
-      "test/**/*.ts"
+      "test/**/*.spec.*"
     ],
 
     /*
@@ -44,7 +44,7 @@ module.exports = function (config) {
      * corresponding karma-*** modules and include them in the list of plugins
      * as well as below.
      */
-    frameworks: ["mocha", "chai"/*, "sinon"*/],
+    frameworks: ["jasmine"],
 
     logLevel: config.LOG_INFO,
 
@@ -65,7 +65,7 @@ module.exports = function (config) {
      * npm module to be npm installed and added to the "plugins" field.
      */
     preprocessors: {
-      "test/**/*.ts": ["webpack"] // Using karma-webpack npm module
+      "test/**/*.spec.*": ["webpack", "sourcemap"]
     },
 
     /*
@@ -73,7 +73,7 @@ module.exports = function (config) {
      * use the karma-mocha-reporter, you must npm install the module and
      * include it in the list of plugins.
      */
-    reporters: ["mocha"],
+    reporters: ['progress'],
 
     /*
      * If true, Karma will start and capture all configured browsers, run

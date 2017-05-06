@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "jasmine": "registry:dt/jasmine#2.5.2+20170315065549"
+  },
+  "dependencies": {
+    "text-encoding": "github:nozzlegear/text-encoding.d.ts"
+  }
+}

@@ -1,6 +1,5 @@
 package prowse.akka
 
-import java.lang.Thread.UncaughtExceptionHandler
 import java.util.logging.{Level, LogManager}
 
 import com.typesafe.scalalogging.LazyLogging
@@ -14,10 +13,8 @@ object Main extends LazyLogging {
     java.util.logging.Logger.getLogger("global").setLevel(Level.FINEST)
 
     def main(args: Array[String]): Unit = {
-        Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionHandler {
-            override def uncaughtException(t: Thread, e: Throwable): Unit = {
-                logger.error("UncaughtException on main thread", e)
-            }
+        Thread.currentThread().setUncaughtExceptionHandler((_, e: Throwable) => {
+            logger.error("UncaughtException on main thread", e)
         })
 
         akka.Main.main(Array(classOf[AppSupervisorActor].getName))

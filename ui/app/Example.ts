@@ -1,4 +1,5 @@
-const proto = require("../generated/ExampleModel_pb.js") as any;
+/// <reference path="../typings/index.d.ts" />
+import * as encoding from 'text-encoding';
 
 export interface ExampleModel {
   message: string;
@@ -13,16 +14,15 @@ export class ExampleMessageCodec {
     return ExampleMessageCodec.readText(event.data);
   }
 
+  static textDecoder = new encoding.TextDecoder('UTF-8');
+  static textEncoder = new encoding.TextEncoder();
+
   static readBinary(data: ArrayBuffer): ExampleModel {
-    return proto.ExampleModel
-      .deserializeBinary(data)
-      .toObject();
+    return {message: ExampleMessageCodec.textDecoder.decode(new DataView(data))};
   }
 
-  static writeBinary(entity: ExampleModel): ArrayBuffer|Blob {
-    let data = new proto.ExampleModel();
-    data.setMessage(entity.message);
-    return data.serializeBinary();
+  static writeBinary(entity: ExampleModel): ArrayBufferView | Blob {
+    return ExampleMessageCodec.textEncoder.encode(entity.message);
   }
 
   static readText(text: string): ExampleModel {

@@ -1,16 +1,11 @@
-/// <reference path="../../typings/index.d.ts" />
-import * as Chai from 'chai';
-import {ExampleMessageCodec} from '../../app/Example';
-const assert = Chai.assert;
+/// <reference path="../typings/index.d.ts" />
+import {ExampleMessageCodec} from '../app/Example';
 
-describe('RingBuffer', () => {
+describe('ExampleMessageCodec', () => {
 
-  describe('forEach', () => {
-    it('reads JSON', () => {
-      let exampleModel = ExampleMessageCodec.readText('{"message":"helloWorld"}');
+  it('Reads Text', () => {
+    let exampleModel = ExampleMessageCodec.readText('{"message":"helloWorld"}');
 
-      assert.deepEqual(exampleModel, {message: 'helloWorld'});
-    });
+    expect(exampleModel).toEqual({message: 'helloWorld'});
   });
-
 });

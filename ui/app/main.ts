@@ -1,5 +1,8 @@
+/// <reference path="../typings/index.d.ts" />
 import {WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/observable/dom/WebSocketSubject';
 import {ExampleMessageCodec, ExampleModel} from './Example';
+
+require('../less/main.less');
 
 const webSocketSubjectConfig: WebSocketSubjectConfig = {
   url: 'ws://localhost:8080/ws',
@@ -29,7 +32,9 @@ const socket: WebSocketSubject<ExampleModel> = WebSocketSubject.create(webSocket
 socket.subscribe(
   // next
   function (e) {
-    console.debug('message', e);
+    console.info('message', e);
+    document.body.appendChild(document.createElement('hr'));
+    document.body.appendChild(document.createTextNode(e.message));
   },
   // error
   function (error: any) {

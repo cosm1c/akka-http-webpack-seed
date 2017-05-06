@@ -8,7 +8,8 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatchers.RemainingPath
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Flow
-import prowse.BuildInfoHelper
+import prowse.BuildInfo
+import prowse.akka.example.ExampleWebsocketFlow
 
 import scala.concurrent.Future
 
@@ -23,19 +24,16 @@ class AppSupervisorActor extends Actor with ActorLogging {
         path("ws") {
             handleWebSocketMessages(ExampleWebsocketFlow.create(log))
         } ~
-            pathEndOrSingleSlash {
-                get {
+            get {
+                pathEndOrSingleSlash {
                     getFromResource("ui/index.html")
-                }
-            } ~
-            path("buildInfo") {
-                get {
-                    // Set ContentType as we have pre-calculated JSON response as String
-                    complete(HttpEntity(ContentTypes.`application/json`, BuildInfoHelper.buildInfoJson))
-                }
-            } ~
-            path(RemainingPath) { filePath =>
-                getFromResource("ui/" + filePath)
+                } ~
+                    path("buildInfo") {
+                        complete(HttpEntity(ContentTypes.`application/json`, BuildInfo.toJson))
+                    } ~
+                    path(RemainingPath) { filePath =>
+                        getFromResource("ui/" + filePath)
+                    }
             }
 
 
@@ -56,6 +54,6 @@ class AppSupervisorActor extends Actor with ActorLogging {
     }
 
     override def receive: Receive = {
-        case _ => ???
+        case msg => log.warning("Received unknown message: {}", msg)
     }
 }
