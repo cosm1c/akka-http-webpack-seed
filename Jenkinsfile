@@ -9,12 +9,12 @@ pipeline {
     stage('Build') {
       steps {
         sh 'sbt -no-colors clean test assembly'
-        junit 'target/test-reports/*.xml'
       }
     }
     stage('Report') {
       steps {
         archiveArtifacts 'target/scala-2.12/*.jar'
+        junit 'target/test-reports/*.xml'
       }
     }
   }
