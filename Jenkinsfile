@@ -2,9 +2,9 @@ pipeline {
   agent {
     docker {
       image 'hseeberger/scala-sbt'
-      args '-v $HOME/.ivy2:/root/.ivy2'
+      args '-v $HOME/.ivy2:/root/.ivy2 -v $HOME/.jenkins:/root/.jenkins'
     }
-
+    
   }
   stages {
     stage('Setup') {
