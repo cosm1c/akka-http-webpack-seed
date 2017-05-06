@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      image 'tarunbhm/docker-alpine-oraclejdk8'
-      args '--volume=/var/run/docker.sock:/var/run/docker.sock --volume=$HOME/.ivy2:/root/.ivy2'
+      image 'hseeberger/scala-sbt'
+      args '--volume=$HOME/.ivy2:/root/.ivy2'
     }
     
   }
