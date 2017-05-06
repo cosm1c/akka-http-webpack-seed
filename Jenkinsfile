@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
-        echo 'Running ${env.BUILD_ID} on ${env.JENKINS_URL}'
+        sh 'echo Running ${BUILD_ID} on ${JENKINS_URL} at ${WORKSPACE}'
       }
     }
     stage('Build') {
