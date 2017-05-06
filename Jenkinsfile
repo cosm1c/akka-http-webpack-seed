@@ -9,7 +9,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'sbt clean test assembly'
-        junit 'target/test-reports/**/*.xml'
+        junit 'target/test-reports/*.xml,target/test-reports/**/*.xml'
       }
     }
     stage('Report') {
