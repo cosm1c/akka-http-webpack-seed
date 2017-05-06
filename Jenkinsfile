@@ -4,11 +4,12 @@ pipeline {
       image 'hseeberger/scala-sbt'
       args '-v $HOME/.ivy2:/root/.ivy2'
     }
-    
+
   }
   stages {
     stage('Setup') {
       steps {
+        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh '''/usr/bin/sbt clean
 '''
       }
