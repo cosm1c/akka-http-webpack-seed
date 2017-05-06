@@ -9,9 +9,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
-        sh '''echo PATH=${PATH}
-
-sbt clean
+        sh '''sbt clean
 '''
       }
     }
