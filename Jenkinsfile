@@ -15,6 +15,7 @@ pipeline {
 
           },
           "Frontend Unit Tests": {
+            sh 'yarn install --no-lockfile'
             sh 'npm run ci-test'
             junit 'target/ui/test-reports/*.xml'
           }
