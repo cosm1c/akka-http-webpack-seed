@@ -12,12 +12,13 @@ pipeline {
           "Backend Unit Tests": {
             sh 'sbt -no-colors clean test'
             junit 'target/test-reports/*.xml'
-
+            
           },
           "Frontend Unit Tests": {
             sh 'yarn install --no-lockfile'
             sh 'npm run ci-test'
             junit 'target/ui/test-reports/*.xml'
+            
           }
         )
       }
