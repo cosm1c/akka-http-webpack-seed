@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
-        sh 'echo START BUILD_ID=${BUILD_ID} GIT_COMMIT=${GIT_COMMIT} JENKINS_URL=${JENKINS_URL} WORKSPACE=${WORKSPACE}'
+        sh 'echo START BUILD_ID=${BUILD_ID} WORKSPACE=${WORKSPACE}'
       }
     }
     stage('Build') {
