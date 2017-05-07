@@ -35,8 +35,7 @@ gulp.task('ci-test', ['clean'], function (done) {
 
   new Server({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true,
-    colors: false
+    singleRun: true
   }, done).start();
 });
 

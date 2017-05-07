@@ -1,3 +1,4 @@
+#!groovy
 pipeline {
   agent any
   stages {
@@ -10,13 +11,17 @@ pipeline {
       steps {
         parallel(
           "Backend Unit Tests": {
-            sh 'sbt -no-colors clean test'
+            wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+              sh 'sbt clean test'
+            }
             junit 'target/test-reports/*.xml'
             
           },
           "Frontend Unit Tests": {
-            sh 'yarn install --no-lockfile'
-            sh 'npm run ci-test'
+            wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+              sh 'yarn install --no-lockfile'
+              sh 'npm run ci-test'
+            }
             junit 'target/ui/test-reports/*.xml'
             
           }
