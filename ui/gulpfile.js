@@ -30,6 +30,16 @@ gulp.task('test', function (done) {
   }, done).start();
 });
 
+gulp.task('ci-test', ['clean'], function (done) {
+  const Server = require('karma').Server;
+
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+    colors: false
+  }, done).start();
+});
+
 gulp.task('package', ['clean', 'test'], function (cb) {
   const webpackConfig = require('./webpack.prd.config.js');
 

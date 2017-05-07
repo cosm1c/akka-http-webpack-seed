@@ -12,14 +12,18 @@ pipeline {
           "Backend Unit Tests": {
             sh 'sbt -no-colors clean test'
             junit 'target/test-reports/*.xml'
-            
+
           },
           "Frontend Unit Tests": {
             sh 'npm run ci-test'
             junit 'target/ui/test-reports/*.xml'
-            
           }
         )
+      }
+    }
+    stage('Staging') {
+      steps {
+        echo 'TODO: deploy to docker container'
       }
     }
     stage('User Acceptance') {
