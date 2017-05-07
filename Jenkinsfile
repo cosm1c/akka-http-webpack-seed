@@ -33,11 +33,6 @@ pipeline {
         input 'Does the staging environment look ok?'
       }
     }
-    stage('Report') {
-      steps {
-        archiveArtifacts 'target/scala-2.12/*.jar'
-      }
-    }
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
