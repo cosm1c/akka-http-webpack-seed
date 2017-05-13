@@ -48,13 +48,13 @@ pipeline {
             deleteDir()
         }
         success {
-            echo 'Build successful'
+            echo 'Build successful.'
         }
         failure {
-            echo 'Build failed'
+            echo 'Build failed.'
         }
         unstable {
-            echo 'Build unstable'
+            echo 'Build unstable.'
         }
 /*
         changed {
