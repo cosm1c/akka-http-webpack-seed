@@ -1,6 +1,6 @@
 #!groovy
 /*
- * Jenkins Blue Ocean Pipeline
+ * Jenkins Blue Ocean Pipeline POC.
  */
 pipeline {
     agent any
