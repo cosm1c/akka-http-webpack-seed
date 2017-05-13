@@ -8,6 +8,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'echo START BUILD_ID=${BUILD_ID} WORKSPACE=${WORKSPACE}'
+                // TODO: other setup
             }
         }
         stage('Build') {
