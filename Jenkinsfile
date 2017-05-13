@@ -11,7 +11,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'echo START BUILD_ID=${BUILD_ID} WORKSPACE=${WORKSPACE}'
-                // TODO: other setup
+                checkout scm
             }
         }
         stage('Build') {
@@ -24,8 +24,7 @@ pipeline {
                             sh 'sbt clean test'
                         }
                     }
-                    junit 'target/test-reports*/
-/*.xml'
+                    junit 'target/test-reports.xml'
 */
 
                 }, "Frontend Unit Tests": {
@@ -37,22 +36,30 @@ pipeline {
                             sh 'npm run ci-test'
                         }
                     }
-                    junit 'target/ui/test-reports*/
-/*.xml'
+                    junit 'target/ui/test-reports.xml'
 */
                 }
+                milestone label: 'Build successful', ordinal: 1
             }
         }
         stage('Staging') {
             steps {
-                milestone
-                echo 'TODO: deploy to docker container'
+                lock(resource: 'Staging environment', inversePrecedence: true) {
+                    echo 'TODO: deploy to docker container'
+                    echo 'TODO: integrationt tests'
+                }
             }
         }
         stage('User Acceptance') {
             steps {
-                milestone
+                milestone 5
                 input 'Does the staging environment look ok?'
+                milestone 6
+            }
+        }
+        stage('Complete') {
+            steps {
+                echo 'Final step'
             }
         }
     }
