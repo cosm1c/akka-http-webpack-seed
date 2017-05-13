@@ -45,13 +45,13 @@ pipeline {
         }
         stage('Staging') {
             steps {
-                milestone label: 'Deploy to Staging', ordinal: 1
+                milestone
                 echo 'TODO: deploy to docker container'
             }
         }
         stage('User Acceptance') {
             steps {
-                milestone label: 'User acceptance', ordinal: 2
+                milestone
                 input 'Does the staging environment look ok?'
             }
         }
