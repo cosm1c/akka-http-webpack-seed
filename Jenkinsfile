@@ -46,13 +46,8 @@ pipeline {
                 lock(resource: 'Staging environment', inversePrecedence: true) {
                     echo 'TODO: deploy somewhere'
                     echo 'TODO: integrationt tests'
+                    input 'Does the staging environment look ok?'
                 }
-            }
-        }
-        stage('User Acceptance') {
-            steps {
-                milestone label: 'User acceptance passed.', ordinal: 2
-                input 'Does the staging environment look ok?'
             }
         }
         stage('Complete') {
