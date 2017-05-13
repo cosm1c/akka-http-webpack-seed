@@ -53,7 +53,9 @@ pipeline {
         stage('User Acceptance') {
             steps {
                 milestone 5
-                input 'Does the staging environment look ok?'
+                timeout(1) {
+                    input 'Does the staging environment look ok?'
+                }
                 milestone 6
             }
         }
