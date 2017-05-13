@@ -16,8 +16,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+                milestone label: 'Build passed', ordinal: 1
                 parallel "Backend Unit Tests": {
-                    echo "TODO: run backend testst"
+                    echo "TODO: re-enable backend tests"
 /*
                     ansiColor('xterm') {
                         timeout(10) {
@@ -26,9 +27,8 @@ pipeline {
                     }
                     junit 'target/test-reports.xml'
 */
-
                 }, "Frontend Unit Tests": {
-                    echo "TODO: run frontend testst"
+                    echo "TODO: re-enable frontend tests"
 /*
                     ansiColor('xterm') {
                         timeout(10) {
@@ -43,20 +43,17 @@ pipeline {
         }
         stage('Staging') {
             steps {
-                milestone label: 'Build successful', ordinal: 1
                 lock(resource: 'Staging environment', inversePrecedence: true) {
-                    echo 'TODO: deploy to docker container'
+                    milestone label: 'Staged for User acceptance.', ordinal: 2
+                    echo 'TODO: deploy somewhere'
                     echo 'TODO: integrationt tests'
                 }
             }
         }
         stage('User Acceptance') {
             steps {
-                milestone 5
-                timeout(1) {
-                    input 'Does the staging environment look ok?'
-                }
-                milestone 6
+                milestone label: 'User acceptance passed.', ordinal: 3
+                input 'Does the staging environment look ok?'
             }
         }
         stage('Complete') {
