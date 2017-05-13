@@ -1,4 +1,7 @@
 #!groovy
+/*
+ * Jenkins Blue Ocean Pipeline
+ */
 pipeline {
     agent any
     options {
