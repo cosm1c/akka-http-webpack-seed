@@ -42,8 +42,8 @@ pipeline {
         }
         stage('Staging') {
             steps {
+                milestone label: 'Staged for User acceptance.', ordinal: 1
                 lock(resource: 'Staging environment', inversePrecedence: true) {
-                    milestone label: 'Staged for User acceptance.', ordinal: 1
                     echo 'TODO: deploy somewhere'
                     echo 'TODO: integrationt tests'
                 }
