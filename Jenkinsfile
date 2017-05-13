@@ -1,6 +1,9 @@
 #!groovy
 pipeline {
     agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
     stages {
         stage('Setup') {
             steps {
@@ -30,7 +33,7 @@ pipeline {
         }
         stage('Staging') {
             steps {
-                milestone label: 'Deploy to Staging'
+                milestone label: 'Deploy to Staging', ordinal: 1
                 echo 'TODO: deploy to docker container'
             }
         }
@@ -39,9 +42,6 @@ pipeline {
                 input 'Does the staging environment look ok?'
             }
         }
-    }
-    options {
-        properties([buildDiscarder(logRotator(numToKeepStr: '10'))])
     }
     post {
         always {
