@@ -16,7 +16,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                milestone label: 'Build passed', ordinal: 1
                 parallel "Backend Unit Tests": {
                     echo "TODO: re-enable backend tests"
 /*
@@ -44,7 +43,7 @@ pipeline {
         stage('Staging') {
             steps {
                 lock(resource: 'Staging environment', inversePrecedence: true) {
-                    milestone label: 'Staged for User acceptance.', ordinal: 2
+                    milestone label: 'Staged for User acceptance.', ordinal: 1
                     echo 'TODO: deploy somewhere'
                     echo 'TODO: integrationt tests'
                 }
@@ -52,7 +51,7 @@ pipeline {
         }
         stage('User Acceptance') {
             steps {
-                milestone label: 'User acceptance passed.', ordinal: 3
+                milestone label: 'User acceptance passed.', ordinal: 2
                 input 'Does the staging environment look ok?'
             }
         }
