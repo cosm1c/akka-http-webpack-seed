@@ -29,8 +29,8 @@ pipeline {
             }
         }
         stage('Staging') {
-            milestone label: 'Deploy to Staging'
             steps {
+                milestone label: 'Deploy to Staging'
                 echo 'TODO: deploy to docker container'
             }
         }
