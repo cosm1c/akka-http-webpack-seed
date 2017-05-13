@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Staging') {
             steps {
-                milestone label: 'Deploy to Staging', ordinal: 2
+                milestone label: 'Deploy to Staging', ordinal: 1
                 echo 'TODO: deploy to docker container'
             }
         }
