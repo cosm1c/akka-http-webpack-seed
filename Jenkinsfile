@@ -1,45 +1,65 @@
 #!groovy
 pipeline {
-  agent any
-  stages {
-    stage('Setup') {
-      steps {
-        sh 'echo START BUILD_ID=${BUILD_ID} WORKSPACE=${WORKSPACE}'
-      }
-    }
-    stage('Build') {
-      steps {
-        parallel(
-          "Backend Unit Tests": {
-            wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-              sh 'sbt clean test'
+    agent any
+    stages {
+        stage('Setup') {
+            steps {
+                sh 'echo START BUILD_ID=${BUILD_ID} WORKSPACE=${WORKSPACE}'
             }
-            junit 'target/test-reports/*.xml'
-            
-          },
-          "Frontend Unit Tests": {
-            wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-              sh 'yarn install --no-lockfile'
-              sh 'npm run ci-test'
+        }
+        stage('Build') {
+            steps {
+                parallel "Backend Unit Tests": {
+                    ansiColor('xterm') {
+                        timeout(10) {
+                            sh 'sbt clean test'
+                        }
+                    }
+                    junit 'target/test-reports/*.xml'
+
+                }, "Frontend Unit Tests": {
+                    ansiColor('xterm') {
+                        timeout(10) {
+                            sh 'yarn install --no-lockfile'
+                            sh 'npm run ci-test'
+                        }
+                    }
+                    junit 'target/ui/test-reports/*.xml'
+                }
             }
-            junit 'target/ui/test-reports/*.xml'
-            
-          }
-        )
-      }
+        }
+        stage('Staging') {
+            milestone label: 'Deploy to Staging'
+            steps {
+                echo 'TODO: deploy to docker container'
+            }
+        }
+        stage('User Acceptance') {
+            steps {
+                input 'Does the staging environment look ok?'
+            }
+        }
     }
-    stage('Staging') {
-      steps {
-        echo 'TODO: deploy to docker container'
-      }
+    options {
+        properties([buildDiscarder(logRotator(numToKeepStr: '10'))])
     }
-    stage('User Acceptance') {
-      steps {
-        input 'Does the staging environment look ok?'
-      }
+    post {
+        always {
+            deleteDir()
+        }
+        success {
+            echo 'Build successful'
+        }
+        failure {
+            echo 'Build failed'
+        }
+        unstable {
+            echo 'Build unstable'
+        }
+/*
+        changed {
+            //
+        }
+*/
     }
-  }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '10'))
-  }
 }
