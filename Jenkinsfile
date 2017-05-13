@@ -39,11 +39,11 @@ pipeline {
                     junit 'target/ui/test-reports.xml'
 */
                 }
-                milestone label: 'Build successful', ordinal: 1
             }
         }
         stage('Staging') {
             steps {
+                milestone label: 'Build successful', ordinal: 1
                 lock(resource: 'Staging environment', inversePrecedence: true) {
                     echo 'TODO: deploy to docker container'
                     echo 'TODO: integrationt tests'
